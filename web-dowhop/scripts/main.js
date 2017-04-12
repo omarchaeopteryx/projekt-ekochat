@@ -42,6 +42,7 @@ function FriendlyChat() {
   this.newChatInputWhere = document.getElementById('searchTextField')
   this.newChatButton = document.getElementById('new-chat-button')
   this.newChatPopup = document.getElementById('new-chat-popup')
+  this.chatList = document.getElementById('chats')
 
   // OM ADD: Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
@@ -97,14 +98,14 @@ FriendlyChat.prototype.loadChats = function() {
   // Creating a Chats reference from Firebase db:
   this.chatsRef = this.database.ref('chats');
   // Removing previous listeners:
-  this.chatsRef.off();
-  // Loads all of the prior events <-- Fix per user
-  var setChat = function(data) {
-  var val = data.val();
-  this.displayChat(data.key, val.title, val.whenDate, val.whenTime, val.where, val.who);
-  }.bind(this);
-  this.chatsRef.limitToLast(5).on('child_added', setChat);
-  this.chatsRef.limitToLast(5).on('child_changed', setChat);
+  // this.chatsRef.off();
+  // // Loads all of the prior events <-- Fix per user
+  // var setChat = function(data) {
+  // var val = data.val();
+  // this.displayChat(data.key, val.title, val.whenDate, val.whenTime, val.where, val.who);
+  // }.bind(this);
+  // this.chatsRef.limitToLast(15).on('child_added', setChat);
+  // this.chatsRef.limitToLast(15).on('child_changed', setChat);
 };
 
 // Saves a new message on the Firebase DB.
@@ -258,6 +259,9 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // We load currently existing chat messages.
     this.loadMessages();
 
+    // We want to load currently existing threads.
+    this.loadChats(); // <-- Check
+
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else { // User is signed out!
@@ -281,7 +285,7 @@ FriendlyChat.prototype.checkSignedInWithMessage = function() {
 
   // Display a message to the user using a Toast.
   var data = {
-    message: 'You must sign-in first',
+    message: 'You must sign-in first, please!',
     timeout: 2000
   };
   this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
@@ -352,7 +356,7 @@ FriendlyChat.prototype.displayChat = function(key, title, whenDate, whenTime, wh
     container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
     div = container.firstChild;
     dev.setAttribute('id', key);
-    this.messageList.appendChild(div);
+    this.chatList.appendChild(div);
   }
 };
 
