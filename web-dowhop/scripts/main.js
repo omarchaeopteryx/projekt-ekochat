@@ -76,22 +76,6 @@ FriendlyChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
-// OM FIX - Adding the chat rooms list:
-// FriendlyChat.prototype.writeUserData = function(userId, name, email, imageUrl) {
-//   this.database().ref('users/' + userId).set({
-//     username: name,
-//     email: email,
-//     profile_picture : imageUrl
-//   });
-// }
-
-// FriendlyChat.prototype.writeChatroomData = function() {
-//   var roomName = this.userName + "'sChat"
-//   this.messagesRef = this.database.ref('rooms/' + roomName).set({
-//     room: roomName
-//   });
-// }
-
 // Loads messages history and listens for upcoming ones.
 FriendlyChat.prototype.loadMessages = function() {
   // Added: Load and listens for new messages.
@@ -108,7 +92,7 @@ FriendlyChat.prototype.loadMessages = function() {
   this.messagesRef.limitToLast(12).on('child_changed', setMessage);
 };
 
-// OM ADD: We want to load a user's chatroom history and listens for upcoming ones:
+// OM ADD: We want to load a user's chatroom history and listens for upcoming ones. <-- TODO: FIX
 FriendlyChat.prototype.loadChats = function() {
   // Creating a Chats reference from Firebase db:
   this.chatsRef = this.database.ref('chats');
@@ -135,7 +119,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     this.messagesRef.push({
       name: currentUser.displayName,
       text: this.messageInput.value,
-      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png' // <- TODO: Change
+      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png' // <- Optional to customize.
     }).then(function() {
       // Clear message text field and SEND button state.
       FriendlyChat.resetMaterialTextfield(this.messageInput);
@@ -147,30 +131,22 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-// OM ADD: New button to save your chatroom topic:
+// OM ADD: Button to save your chatroom topic:
 FriendlyChat.prototype.saveChat = function(e) {
-  // var currentUser = this.auth.currentUser;
-  // e.preventDefault();
-  console.log(this.newChatInputTitle.value);
+  console.log(this.newChatInputTitle.value); // <-- Debugging start
   console.log(this.newChatInputWho.value);
   console.log(this.newChatInputWhenDate.value);
   console.log(this.newChatInputWhenTime.value);
   console.log(this.newChatInputWhere.value);
-  console.log("You clicked the new chat button!");
-  // this.database.ref('chats/').set({
-    // title: this.newChatInputTitle.value,
-    // whenDate: this.newChatInputWhenDate.value,
-    // whenTime: this.newChatInputWhenTime.value,
-    // where: this.newChatInputWhere.value,
-    // who: currentUser.displayName
-  // })
+  console.log("You clicked the new chat button!"); // <-- Debugging end
   e.preventDefault();
-  // Check that the user entered a message and is signed in.
+  // Check that the user entered a message and is signed in:
   if (this.newChatInputTitle.value && this.checkSignedInWithMessage()) {
 
-    // ADDED: push new chat to Firebase.
+    // ADDED: push new chat to Firebase:
     var currentUser = this.auth.currentUser;
-    // Add a new chat entry to the Firebase Database.
+
+    // ADDED: a new chat entry to the Firebase Database:
     this.database.ref('chats/').push({
       title: this.newChatInputTitle.value,
       whenDate: this.newChatInputWhenDate.value,
@@ -179,11 +155,10 @@ FriendlyChat.prototype.saveChat = function(e) {
       who: this.newChatInputWho.value,
       creator: currentUser.displayName
     }).then(function() {
-      // OM ADD: Clear the form and reset the button state.
+      // ADDED: Clear the form and reset the button state.
       this.newChatForm.reset();
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
-
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
