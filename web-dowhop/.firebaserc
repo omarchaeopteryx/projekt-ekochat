@@ -1,6 +1,7 @@
 {
   "projects": {
     "doWhopChat": "friendlychat-bb47b",
-    "web-dowhop": "dowhop-webchat"
+    "web-dowhop": "dowhop-webchat",
+    "staging": "dowhop-webchat"
   }
 }
