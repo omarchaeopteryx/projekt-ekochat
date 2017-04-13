@@ -93,24 +93,32 @@ FriendlyChat.prototype.loadMessages = function() {
   this.messagesRef.limitToLast(12).on('child_changed', setMessage);
 };
 
-// OM ADD: We want to load a user's chatroom history and listen for upcoming ones. <-- TODO: FIX
+// OM: We want to load a user's chatroom history by user-id references:
 FriendlyChat.prototype.loadChats = function() {
-  // Creating a Chats reference from Firebase db:
-  this.chatsRef = this.database.ref('chats/');
-  // Note: we are using .once here because we only need static for now:
-  this.chatsRef.once('value', function(snapshot) {
 
-    var myData = []; // <- Set up object to catch all the data.
+  // First, make sure the view element is chosen:
+  var myView = this.chatList;
 
-    snapshot.forEach(function(childSnapshot) {
-      var childKey = childSnapshot.key;
-      console.log(childKey); // <-- Debugging
-      var childData = childSnapshot.val();
-      console.log(childData); // <-- Debugging
-      myData.push('<p>' + childData.title + '</p>')
-    })
-    console.log(myData);
+  // Second, make sure we have reference to the current user's data:
+  var me = this.auth.currentUser;
+  var myRef = this.database.ref().child('chats/' + me.uid);
+  // myRef.on('child_added', snap => console.log(snap.val())); <-- Debug
+
+  // Third, retrieve all items from the list of user-specific items:
+  myRef.on('child_added', snap => {
+
+    // OM: Simple method for adding db-synced elements:
+    const div = document.createElement('div');
+    div.innerText = snap.val().title;
+    div.id = snap.key;
+    myView.appendChild(div);
   });
+    // var setChat = function(data) {
+    //   var val = data.val();
+    //   this.displayChat(data.key, val.title);
+    // }.bind(this);
+    // this.chatsRef.limitToLast(12).on('child_added', setChat);
+    // this.chatsRef.limitToLast(12).on('child_changed', setChat);
 };
 
 // Saves a new message on the Firebase DB.
@@ -137,7 +145,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-// OM ADD: Button to save your chatroom topic:
+// OM: Button to save your chat thread to the database:
 FriendlyChat.prototype.saveChat = function(e) {
   console.log(this.newChatInputTitle.value); // <-- Debugging start
   console.log(this.newChatInputWho.value);
@@ -153,7 +161,7 @@ FriendlyChat.prototype.saveChat = function(e) {
     var currentUser = this.auth.currentUser;
 
     // ADDED: a new chat entry to the Firebase Database:
-    this.database.ref('chats/').push({
+    this.database.ref('chats/' + currentUser.uid).push({
       title: this.newChatInputTitle.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
@@ -228,8 +236,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
   }
 };
 
-// ADDED: Save all users who've logged in into DB:
-
+// OM: Save all users who've logged in into DB via UID for shallow nesting:
 FriendlyChat.prototype.saveUser = function() {
   var currentUser = this.auth.currentUser;
   this.database.ref('users/' + currentUser.uid).set({
@@ -278,8 +285,11 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     this.loadMessages();
 
     // We want to load currently existing threads.
-    this.loadChats(); // <-- Check
+    this.loadChats(); // <-- Check.
+
+    // We want to save currently signed-in user.
     this.saveUser(); // <-- Check.
+
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else { // User is signed out!
@@ -364,19 +374,19 @@ FriendlyChat.CHAT_TEMPLATE =
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
-// OM ADD: We want to display the list of chats in the UI <-- FIX
-FriendlyChat.prototype.displayChat = function(childKey, childData) {
-  var div = document.getElementById(childKey);
-  if (!div) {
-    var container = document.createElement('div');
-    container.innerHTML = '<section>' + '<p>' + '</p>' + '</section>';
-    // container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
-    div = container.firstChild;
-    div.setAttribute('id', childKey);
-    // div.text(childData);
-    this.chatList.appendChild(div);
-  }
-};
+// OM ADD: We want to display the list of chats in the UI <-- FIX!
+// FriendlyChat.prototype.displayChat = function(childKey, childData) {
+//   var div = document.getElementById(childKey);
+//   if (!div) {
+//     var container = document.createElement('div');
+//     container.innerHTML = '<section>' + '<p>' + '</p>' + '</section>';
+//     // container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+//     div = container.firstChild;
+//     div.setAttribute('id', childKey);
+//     // div.text(childData);
+//     this.chatList.appendChild(div);
+//   }
+// };
 
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
@@ -442,5 +452,4 @@ window.onload = function() {
   window.friendlyChat = new FriendlyChat();
 };
 
-// notes: use firebase.auth().currentUser.uid in console to find current user id
-//
+// Dev Notes: use firebase.auth().currentUser.uid in console to find current user id
