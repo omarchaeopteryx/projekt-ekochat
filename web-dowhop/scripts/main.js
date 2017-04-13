@@ -44,6 +44,10 @@ function FriendlyChat() {
   this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
 
+  // OM ADD: Load chat data
+  this.chatItemData = document.getElementById('show-chat-data');
+  // this.chatItemData.addEventListener('click', this.loadChatData.bind(this));
+
   // OM ADD: Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
 
@@ -81,7 +85,8 @@ FriendlyChat.prototype.initFirebase = function() {
 FriendlyChat.prototype.loadMessages = function() {
   // Added: Load and listens for new messages.
   // Reference to the /messages/ database path.
-  this.messagesRef = this.database.ref('messages');
+  let user = this.auth.currentUser.uid;
+  this.messagesRef = this.database.ref('messages/' + user);
   // Make sure we remove all previous listeners.
   this.messagesRef.off();
   // Loads the last x number of messages and listen for new ones.
@@ -91,6 +96,12 @@ FriendlyChat.prototype.loadMessages = function() {
   }.bind(this);
   this.messagesRef.limitToLast(12).on('child_added', setMessage); //
   this.messagesRef.limitToLast(12).on('child_changed', setMessage);
+};
+
+// OM: We want to load a chat's specific data into view - these are bound to the buttons created below:
+FriendlyChat.prototype.loadChatData = function() {
+  // console.log('hello there.....! ');
+  // this.chatShowData.innerHTML();
 };
 
 // OM: We want to load a user's chatroom history by user-id references:
@@ -103,8 +114,9 @@ FriendlyChat.prototype.loadChats = function() {
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('chats/' + me.uid);
   // myRef.on('child_added', snap => console.log(snap.val())); <-- Debug
-
   // Third, retrieve all items from the list of user-specific items:
+  var myChatData = this.chatItemData;
+
   myRef.on('child_added', snap => {
 
     // OM: Simple method for adding db-synced elements:
@@ -116,15 +128,23 @@ FriendlyChat.prototype.loadChats = function() {
 
     // OM: Alternative Method for creating buttons
       var container = document.createElement('div');
-      // container.innerHTML = '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>'; // <-- Refactor!
       container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
-      // div.text(childData);
-      myView.appendChild(button);
+      button.addEventListener('click', function(){
 
+        console.log(snap.val()); // <-- REFACTOR!
+        myChatData.innerText = snap.val().title;
+
+        myChatData.innerHTML = "<p>" + snap.val().title + '</p>' +
+                "<p>" + snap.val().whenDate + '</p>' +
+                "<p>" + snap.val().whenTime + '</p>' +
+                "<p>" + snap.val().where + '</p>'
+      });
+      myView.appendChild(button);
   });
+
     // var setChat = function(data) {
     //   var val = data.val();
     //   this.displayChat(data.key, val.title);
@@ -153,7 +173,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
-
   }
 };
 
@@ -188,7 +207,6 @@ FriendlyChat.prototype.saveChat = function(e) {
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
-
   }
 }
 

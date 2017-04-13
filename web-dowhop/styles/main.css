@@ -15,8 +15,9 @@
  */
 
 html, body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Avenir', sans-serif; /* NB: Compare to other stylesheets */
 }
+
 main, #messages-card {
   height: 100%;
   padding-bottom: 0;
@@ -197,12 +198,3 @@ main, #messages-card {
   top: -1px;
   margin-right: 5px;
 }
-
-/* TODO: Add chat thread styling */
-
-/*.chat-container {
-  background-color: grey;
-}
-
-#chat-list {
-}*/
