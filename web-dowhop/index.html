@@ -72,6 +72,37 @@
   </header>
 
   <main class="mdl-layout__content mdl-color--grey-100">
+    <!-- Chat threads container -->
+    <div id="chats-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+      <div id="chats-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+      </div>
+      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+        <h1>My chats</h1>
+        <ul id="chat-list">
+          <!--New chat-thread (button) items shall go here-->
+        </ul>
+        <div id="create-new-chat" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+          <div class="mdl-cell mdl-cell--12-col mdl-grid">
+          <form id="new-chat-form" action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="new-chat-input-title">
+              <label class="mdl-textfield__label" for="message">Title...</label>
+            </div>
+            <br>
+            Who: <input id='new-chat-input-who' type="members"><!---TODO: FIX--->
+            When: <input id='new-chat-input-when-date' type="date">
+            <input id='new-chat-input-when-time' type="time">
+            <br>
+            Where: <input id="searchTextField" type="text" size="50">
+            <button id="new-chat-button" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Start new chat!
+            </button>
+          </form>
+        </div>
+        <p hidden id="new-chat-popup">New conversation started!</p>
+        </div>
+    </div>
+
     <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
       <!-- Messages container -->
       <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
@@ -102,29 +133,6 @@
         <button class="mdl-snackbar__action" type="button"></button>
       </div>
     </div>
-
-    <!-- OM Add -->
-    <div id="create-new-chat" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-      <div class="mdl-cell mdl-cell--12-col mdl-grid">
-      <form id="new-chat-form" action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="new-chat-input-title">
-          <label class="mdl-textfield__label" for="message">Title...</label>
-        </div>
-        <br>
-        Who: <input id='new-chat-input-who' type="members"><!---OM FIX--->
-        When: <input id='new-chat-input-when-date' type="date">
-        <input id='new-chat-input-when-time' type="time">
-        <br>
-        Where: <input id="searchTextField" type="text" size="50">
-        <button id="new-chat-button" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-          Start new chat!
-        </button>
-      </form>
-    </div>
-    <p hidden id="new-chat-popup">New conversation started!</p>
-    </div>
-
 
   </main>
 </div>

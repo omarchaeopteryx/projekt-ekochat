@@ -198,6 +198,11 @@ main, #messages-card {
   margin-right: 5px;
 }
 
-#new-chat-popup {
-  color: red;
+/* TODO: Add chat thread styling */
+
+/*.chat-container {
+  background-color: grey;
 }
+
+#chat-list {
+}*/
