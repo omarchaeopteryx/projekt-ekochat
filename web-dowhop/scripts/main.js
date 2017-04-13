@@ -100,7 +100,7 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // OM: We want to load a chat's specific data into view - these are bound to the buttons created below:
 FriendlyChat.prototype.loadChatData = function() {
-  console.log('hello there.....! ');
+  // console.log('hello there.....! ');
   // this.chatShowData.innerHTML();
 };
 
@@ -134,21 +134,14 @@ FriendlyChat.prototype.loadChats = function() {
       button.innerHTML = snap.val().title;
       button.addEventListener('click', function(){
 
-        console.log(snap.val());
+        console.log(snap.val()); // <-- REFACTOR!
         myChatData.innerText = snap.val().title;
 
         myChatData.innerHTML = "<p>" + snap.val().title + '</p>' +
                 "<p>" + snap.val().whenDate + '</p>' +
                 "<p>" + snap.val().whenTime + '</p>' +
                 "<p>" + snap.val().where + '</p>'
-        // let data = this.id;
-        // console.log(data);
-        // let me = firebase.auth().currentUser.uid;
-        // console.log(me);
-        // console.log(myRef.child("chats/" + me))
-        // console.log(myRef.child('chats/' + me + '/' + data));
-
-      }); // <-- See above
+      });
       myView.appendChild(button);
   });
 
