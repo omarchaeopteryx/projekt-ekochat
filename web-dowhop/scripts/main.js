@@ -116,8 +116,8 @@ FriendlyChat.prototype.loadChats = function() {
 
     // OM: Alternative Method for creating buttons
       var container = document.createElement('div');
-      container.innerHTML = '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>'; // <-- Refactor!
-      // container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+      // container.innerHTML = '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>'; // <-- Refactor!
+      container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
@@ -377,11 +377,7 @@ FriendlyChat.MESSAGE_TEMPLATE =
 // OM ADD: Templates for Chats.
 
 FriendlyChat.CHAT_TEMPLATE =
-  '<div class="chat-container">' +
-    '<div class="spacing-2"><div class="pic-2"></div></div>' +
-    '<div class="chat"></div>' +
-    '<div class="title"</div>' +
-    '</div>';
+  '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>';
 
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
