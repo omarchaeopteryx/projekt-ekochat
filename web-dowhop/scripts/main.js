@@ -46,7 +46,7 @@ function FriendlyChat() {
 
   // OM ADD: Load chat data
   this.chatItemData = document.getElementById('show-chat-data');
-  this.chatItemData.addEventListener('click', this.loadChatData.bind(this));
+  // this.chatItemData.addEventListener('click', this.loadChatData.bind(this));
 
   // OM ADD: Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
@@ -114,8 +114,9 @@ FriendlyChat.prototype.loadChats = function() {
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('chats/' + me.uid);
   // myRef.on('child_added', snap => console.log(snap.val())); <-- Debug
-
   // Third, retrieve all items from the list of user-specific items:
+  var myChatData = this.chatItemData;
+
   myRef.on('child_added', snap => {
 
     // OM: Simple method for adding db-synced elements:
@@ -132,11 +133,21 @@ FriendlyChat.prototype.loadChats = function() {
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
       button.addEventListener('click', function(){
-        let data = this.id;
-        console.log(data);
-        let me = firebase.auth().currentUser.uid;
-        console.log(me);
+
+        console.log(snap.val());
+        myChatData.innerText = snap.val().title;
+
+        myChatData.innerHTML = "<p>" + snap.val().title + '</p>' +
+                "<p>" + snap.val().whenDate + '</p>' +
+                "<p>" + snap.val().whenTime + '</p>' +
+                "<p>" + snap.val().where + '</p>'
+        // let data = this.id;
+        // console.log(data);
+        // let me = firebase.auth().currentUser.uid;
+        // console.log(me);
+        // console.log(myRef.child("chats/" + me))
         // console.log(myRef.child('chats/' + me + '/' + data));
+
       }); // <-- See above
       myView.appendChild(button);
   });
