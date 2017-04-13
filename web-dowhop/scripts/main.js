@@ -108,10 +108,22 @@ FriendlyChat.prototype.loadChats = function() {
   myRef.on('child_added', snap => {
 
     // OM: Simple method for adding db-synced elements:
-    const div = document.createElement('div');
-    div.innerText = snap.val().title;
-    div.id = snap.key;
-    myView.appendChild(div);
+    // const div = document.createElement('div');
+    // div.appendChild.createElement('button');
+    // div.firstChild.innerText = snap.val().title;
+    // div.firstChild.id = snap.key;
+    // myView.appendChild(div);
+
+    // OM: Alternative Method for creating buttons
+      var container = document.createElement('div');
+      container.innerHTML = '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>'; // <-- Refactor!
+      // container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+      let button = container.firstChild;
+      button.setAttribute('id', snap.key);
+      button.innerHTML = snap.val().title;
+      // div.text(childData);
+      myView.appendChild(button);
+
   });
     // var setChat = function(data) {
     //   var val = data.val();
