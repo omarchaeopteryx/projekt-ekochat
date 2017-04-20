@@ -3,7 +3,7 @@
 [debug] CLI Version:  3.6.0
 [debug] Platform:     darwin
 [debug] Node Version: v6.9.1
-[debug] Time:         Tue Apr 11 2017 22:00:01 GMT-0700 (PDT)
+[debug] Time:         Thu Apr 20 2017 12:17:21 GMT-0700 (PDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
@@ -13,30 +13,23 @@
   client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
   grant_type: 'refresh_token',
   scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Tue Apr 11 2017 22:00:01 GMT-0700 (PDT)
+ Thu Apr 20 2017 12:17:21 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dowhop-webchat  
- Tue Apr 11 2017 22:00:01 GMT-0700 (PDT)
+ Thu Apr 20 2017 12:17:22 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dowhop-webchat/tokens  
- Tue Apr 11 2017 22:00:02 GMT-0700 (PDT)
+ Thu Apr 20 2017 12:17:23 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [info] Starting Firebase development server...
 [info] 
 [info] Project Directory: /Users/oam/Desktop/klient-friendlychat/web-dowhop
 [debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-webchat  
- Tue Apr 11 2017 22:00:03 GMT-0700 (PDT)
+ Thu Apr 20 2017 12:17:24 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093953118750/clients/_:getWebAppConfig  
- Tue Apr 11 2017 22:00:04 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[warn] ⚠  Port 5000 is not available. Trying another port...
-[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-webchat  
- Tue Apr 11 2017 22:00:04 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093953118750/clients/_:getWebAppConfig  
- Tue Apr 11 2017 22:00:05 GMT-0700 (PDT)
+ Thu Apr 20 2017 12:17:25 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [info] Public Directory: ./
 [info] 
-[info] Server listening at: http://localhost:5001
+[info] Server listening at: http://localhost:5000
