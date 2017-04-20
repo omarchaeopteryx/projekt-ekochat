@@ -7,7 +7,8 @@ $( document ).ready(function() {
     $( "#new-chat-input-when-date" ).datepicker({
                 showOn: "button",
                 buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-                buttonImageOnly: true
+                buttonImageOnly: true,
+                dateFormat: 'yy-mm-dd'
             });
 
     // Add the interactive clock selection:
