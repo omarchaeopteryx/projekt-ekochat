@@ -16,5 +16,7 @@ $( document ).ready(function() {
     })
 });
 
+
 // See also: https://weareoutman.github.io/clockpicker/jquery.html
 // See also: https://www.npmjs.com/package/material-datetime-picker
+// See: https://github.com/Logicify/jquery-locationpicker-plugin
