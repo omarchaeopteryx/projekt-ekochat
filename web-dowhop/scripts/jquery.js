@@ -12,7 +12,6 @@ $( document ).ready(function() {
 
     // Add the interactive clock selection:
     $('#new-chat-input-when-time-icon').on('click', function() {
-      $('#spacer').hide();
       $('#new-chat-input-when-time').fadeIn("slow");
     })
 });
