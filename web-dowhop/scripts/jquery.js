@@ -1,7 +1,6 @@
 $( document ).ready(function() {
 
     $('#new-chat-input-when-time').hide()
-    // console.log( "ready!" ); // <-- Debugging
 
     // Add the interactive calendar selection:
     $( "#new-chat-input-when-date" ).datepicker({
@@ -13,8 +12,8 @@ $( document ).ready(function() {
 
     // Add the interactive clock selection:
     $('#new-chat-input-when-time-icon').on('click', function() {
-      console.log('you clocked a clock!');
-      $('#new-chat-input-when-time').show();
+      $('#spacer').hide();
+      $('#new-chat-input-when-time').fadeIn("slow");
     })
 });
 
