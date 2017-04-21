@@ -15,6 +15,80 @@
  */
 'use strict';
 
+// Creates Google maps:
+
+// This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+  function initAutocomplete() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -33.8688, lng: 151.2195},
+      zoom: 13,
+      mapTypeId: 'roadmap'
+    });
+
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });
+  }
+
+
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
@@ -39,10 +113,11 @@ function FriendlyChat() {
   this.newChatInputWho = document.getElementById('new-chat-input-who')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
-  this.newChatInputWhere = document.getElementById('searchTextField')
+  this.newChatInputWhere = document.getElementById('pac-input')
   this.newChatButton = document.getElementById('new-chat-button')
   this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
+  this.chatInputMap = document.getElementById('map')
 
   // OM ADD: Load chat data
   this.chatItemData = document.getElementById('show-chat-data');
@@ -202,6 +277,8 @@ FriendlyChat.prototype.saveChat = function(e) {
     }).then(function() {
       // ADDED: Clear the form and reset the button state.
       this.newChatForm.reset();
+      // ADDED: Clear the Google map
+      // this.chatInputMap.reset() <-- Fix
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
     }.bind(this)).catch(function(error) {
