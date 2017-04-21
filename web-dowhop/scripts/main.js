@@ -113,10 +113,11 @@ function FriendlyChat() {
   this.newChatInputWho = document.getElementById('new-chat-input-who')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
-  this.newChatInputWhere = document.getElementById('searchTextField')
+  this.newChatInputWhere = document.getElementById('pac-input')
   this.newChatButton = document.getElementById('new-chat-button')
   this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
+  this.chatInputMap = document.getElementById('map')
 
   // OM ADD: Load chat data
   this.chatItemData = document.getElementById('show-chat-data');
@@ -276,6 +277,8 @@ FriendlyChat.prototype.saveChat = function(e) {
     }).then(function() {
       // ADDED: Clear the form and reset the button state.
       this.newChatForm.reset();
+      // ADDED: Clear the Google map
+      // this.chatInputMap.reset() <-- Fix
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
     }.bind(this)).catch(function(error) {
