@@ -1,6 +1,6 @@
-
 Coming soon.
 
 
-Derived from Firebase Codelab: FriendlyChat. Learn more at:
-   -[Firebase Web Codelab](https://codelabs.developers.google.com/codelabs/firebase-web/).
+Provenance: code derived from Firebase Codelab: FriendlyChat [Firebase Web Codelab](https://codelabs.developers.google.com/codelabs/firebase-web/).
+
+Made by @omarchaeopteryx, 2017
