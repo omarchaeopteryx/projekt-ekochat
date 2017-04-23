@@ -121,6 +121,7 @@ function FriendlyChat() {
 
   // OM ADD: Load chat data
   this.chatItemData = document.getElementById('show-chat-data');
+
   // this.chatItemData.addEventListener('click', this.loadChatData.bind(this));
 
   // OM ADD: Save chats on chatroom form submit:
@@ -160,6 +161,7 @@ FriendlyChat.prototype.initFirebase = function() {
 FriendlyChat.prototype.loadMessages = function() {
   // Added: Load and listens for new messages.
   // Reference to the /messages/ database path.
+  // let chat = this.getElementyById('show-chat-data')
   let user = this.auth.currentUser.uid;
   this.messagesRef = this.database.ref('messages/' + user);
   // Make sure we remove all previous listeners.
@@ -175,19 +177,19 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // OM: We want to load a chat's specific data into view - these are bound to the buttons created below:
 FriendlyChat.prototype.loadChatData = function() {
-  // console.log('hello there.....! ');
+  console.log('hello there.....! ');
   // this.chatShowData.innerHTML();
-  let user = this.auth.currentUser.uid;
-  let current = this.getElementById('current-event-title');
-  // Make sure we remove all previous listeners.
-  this.messagesRef.off();
-  // Loads the last x number of messages and listen for new ones.
-  var setMessage = function(data) {
-    var val = data.val();
-    this.displayMesasge(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-  }.bind(this);
-  this.messagesRef.lmitToLast(12).on('child_added', setMessage);
-  this.messagesRef.limitToLast(12).on('child_changed', setMessage);
+  // let user = this.auth.currentUser.uid;
+  // let current = this.getElementById('current-event-title');
+  // // Make sure we remove all previous listeners.
+  // this.messagesRef.off();
+  // // Loads the last x number of messages and listen for new ones.
+  // var setMessage = function(data) {
+  //   var val = data.val();
+  //   this.displayMesasge(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+  // }.bind(this);
+  // this.messagesRef.lmitToLast(12).on('child_added', setMessage);
+  // this.messagesRef.limitToLast(12).on('child_changed', setMessage);
 };
 
 // OM: We want to load a user's chatroom history by user-id references:
@@ -197,7 +199,6 @@ FriendlyChat.prototype.loadChats = function() {
   var myView = this.chatList;
 
   var myViewMessageList = this.messageList;
-
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('chats/' + me.uid);
@@ -233,21 +234,26 @@ FriendlyChat.prototype.loadChats = function() {
                 "<p>" + snap.val().whenTime + '</p>' +
                 "<p>" + snap.val().who + '</p>' +
                 "<p>" + snap.val().where + '</p>'
+
+                // Return to this after you save message nested:
+      // var myMessagesRef = firebase.database().ref().child('messages/' +
+      // snap.key);
+      // var myMessagesView = createElement('div');
+      // console.log(myMessagesRef);
       });
       myView.appendChild(button);
   });
-
-    // var setChat = function(data) {
-    //   var val = data.val();
-    //   this.displayChat(data.key, val.title);
-    // }.bind(this);
-    // this.chatsRef.limitToLast(12).on('child_added', setChat);
-    // this.chatsRef.limitToLast(12).on('child_changed', setChat);
 };
 
 // Saves a new message on the Firebase DB.
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
+
+  // NEXT: Make sure this chat and message get sent to two appropriate places!
+  this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
+  console.log('Saving to.....:')
+  console.log(this.chatItemDataSpecific);
+
   // Check that the user entered a message and is signed in.
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
 
