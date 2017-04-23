@@ -177,6 +177,17 @@ FriendlyChat.prototype.loadMessages = function() {
 FriendlyChat.prototype.loadChatData = function() {
   // console.log('hello there.....! ');
   // this.chatShowData.innerHTML();
+  let user = this.auth.currentUser.uid;
+  let current = this.getElementById('current-event-title');
+  // Make sure we remove all previous listeners.
+  this.messagesRef.off();
+  // Loads the last x number of messages and listen for new ones.
+  var setMessage = function(data) {
+    var val = data.val();
+    this.displayMesasge(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+  }.bind(this);
+  this.messagesRef.lmitToLast(12).on('child_added', setMessage);
+  this.messagesRef.limitToLast(12).on('child_changed', setMessage);
 };
 
 // OM: We want to load a user's chatroom history by user-id references:
@@ -184,6 +195,8 @@ FriendlyChat.prototype.loadChats = function() {
 
   // First, make sure the view element is chosen:
   var myView = this.chatList;
+
+  var myViewMessageList = this.messageList;
 
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
@@ -207,14 +220,18 @@ FriendlyChat.prototype.loadChats = function() {
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
+
+      // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
 
-        console.log(snap.val()); // <-- REFACTOR!
+        myViewMessageList.innerText = ''; // Resetting the form;
+        console.log(snap.key); // <-- Debugging
+        console.log("OK"); // <--"
         myChatData.innerText = snap.val().title;
-
-        myChatData.innerHTML = "<p>" + snap.val().title + '</p>' +
+        myChatData.innerHTML = "<p id='" + snap.key + "'>" + snap.val().title + '</p>' +
                 "<p>" + snap.val().whenDate + '</p>' +
                 "<p>" + snap.val().whenTime + '</p>' +
+                "<p>" + snap.val().who + '</p>' +
                 "<p>" + snap.val().where + '</p>'
       });
       myView.appendChild(button);
