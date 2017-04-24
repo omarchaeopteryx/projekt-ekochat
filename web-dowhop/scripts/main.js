@@ -164,7 +164,7 @@ FriendlyChat.prototype.loadChats = function() {
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
-  var myRef = this.database.ref().child('chats/' + me.uid);
+  var myRef = this.database.ref().child('chats/');
   // myRef.on('child_added', snap => console.log(snap.val())); <-- Debug
   // Third, retrieve all items from the list of user-specific items:
   var myChatData = this.chatItemData;
@@ -185,7 +185,8 @@ FriendlyChat.prototype.loadChats = function() {
         console.log(snap.key); // <-- Debugging
         console.log("OK"); // <--"
         myChatData.innerText = snap.val().title;
-        myChatData.innerHTML = "<p id='" + snap.key + "'>" + snap.val().title + '</p>' +
+        myChatData.innerHTML = "<h2 id='" + snap.key + "'>" + snap.val().title + '</h2>' +
+                "<h5> Click here to load </h5>" +
                 "<p>" + snap.val().whenDate + '</p>' +
                 "<p>" + snap.val().whenTime + '</p>' +
                 "<p>" + snap.val().who + '</p>' +
@@ -218,8 +219,8 @@ FriendlyChat.prototype.loadMessages = function() {
     this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
   }.bind(this);
   // this.messagesRef.limitToLast(12).on('child_added', setMessage)
-  this.messagesRef.limitToLast(12).on('child_added', setMessage); // Return to this.
-  this.messagesRef.limitToLast(12).on('child_changed', setMessage);
+  this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage); // Return to this.
+  this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
 };
 
 // OM: We want to load a chat's specific data into view - these are bound to the buttons created below:
@@ -240,8 +241,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   console.log(this.chatItemDataSpecific);
 
   // Nesting the message content under chat-id node headings.
-
-  var messagesChatsRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
+  var messagesChatsRef = this.messagesRef; // <-- FIX! Rewrite
 
   // Check that the user entered a message and is signed in.
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
@@ -280,7 +280,7 @@ FriendlyChat.prototype.saveChat = function(e) {
     var currentUser = this.auth.currentUser;
 
     // ADDED: a new chat entry to the Firebase Database:
-    this.database.ref('chats/' + currentUser.uid).push({
+    this.database.ref('chats/').push({
       title: this.newChatInputTitle.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
