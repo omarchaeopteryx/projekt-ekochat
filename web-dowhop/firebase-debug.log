@@ -1,0 +1,77 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.6.0
+[debug] Platform:     darwin
+[debug] Node Version: v6.9.1
+[debug] Time:         Sat Apr 22 2017 10:20:55 GMT-0700 (PDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/G44bLB0gEAFg6tjVsdJOVlUV_21oy0mv_Pk86-ntcn0',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sat Apr 22 2017 10:20:56 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dowhop-webchat  
+ Sat Apr 22 2017 10:20:56 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dowhop-webchat/tokens  
+ Sat Apr 22 2017 10:20:56 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/oam/Desktop/klient-friendlychat/web-dowhop
+[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-webchat  
+ Sat Apr 22 2017 10:20:57 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093953118750/clients/_:getWebAppConfig  
+ Sat Apr 22 2017 10:20:58 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[info] Public Directory: ./
+[info] 
+[info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] CLI Version:  3.6.0
+[debug] Platform:     darwin
+[debug] Node Version: v6.9.1
+[debug] Time:         Sun Apr 23 2017 23:21:51 GMT-0700 (PDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/G44bLB0gEAFg6tjVsdJOVlUV_21oy0mv_Pk86-ntcn0',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Apr 23 2017 23:21:51 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dowhop-webchat  
+ Sun Apr 23 2017 23:21:52 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dowhop-webchat/tokens  
+ Sun Apr 23 2017 23:21:52 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[info] Starting Firebase development server...
+[info] 
+[info] Project Directory: /Users/oam/Desktop/klient-friendlychat/web-dowhop
+[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-webchat  
+ Sun Apr 23 2017 23:21:53 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093953118750/clients/_:getWebAppConfig  
+ Sun Apr 23 2017 23:21:54 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[warn] ⚠  Port 5000 is not available. Trying another port...
+[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-webchat  
+ Sun Apr 23 2017 23:21:54 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1093953118750/clients/_:getWebAppConfig  
+ Sun Apr 23 2017 23:21:55 GMT-0700 (PDT)
+[debug] <<< HTTP RESPONSE 200
+[info] Public Directory: ./
+[info] 
+[info] Server listening at: http://localhost:5001
