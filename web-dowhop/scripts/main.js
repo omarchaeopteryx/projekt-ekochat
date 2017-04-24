@@ -186,10 +186,12 @@ FriendlyChat.prototype.loadChats = function() {
         console.log("OK"); // <--"
         myChatData.innerText = snap.val().title;
         myChatData.innerHTML = "<h2 id='" + snap.key + "'>" + snap.val().title + '</h2>' +
-                "<h5>Click here to load messages</h5>" +
-                "<p>" + snap.val().whenDate + '</p>' +
-                "<p>" + snap.val().whenTime + '</p>' +
+                "<p>Click  to load messages.</p>" +
+                "<h5>When?</h5>" +
+                "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + '</p>' +
+                "<h5>Who?</h5>" +
                 "<p>" + snap.val().who + '</p>' +
+                "<h5>Where?</h5>" +
                 "<p>" + snap.val().where + '</p>'
 
                 // Return to this after you save message nested:
