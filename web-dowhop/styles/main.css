@@ -24,10 +24,7 @@
    margin: auto;
  }
 
-/* Adding map styling */
-
-/* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+/* Adding map styling. Always best to set the map height div explicitly. */
 
 #where-column-bounds {
     display: flex;
@@ -37,8 +34,6 @@
 #map {
     height: 500px;
     width: 600px;
-    /*display: flex;
-    justify-content: center;*/
   }
 
 #description {
@@ -113,6 +108,7 @@
  width: 345px;
 }
 
+/* Added-on styling details */
 #image-form {
   padding: 2%;
 }
