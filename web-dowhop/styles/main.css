@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
- h1,h2,h3,h4,h5 { font-family: Avenir }
-
 /* Adding in FriendlyChat presets */
 
  main, #messages-card {
   height: 100%;
   padding-bottom: 0;
 }
+
 #messages-card-container {
   height: calc(100% - 150px);
   padding-bottom: 0;
 }
+
 #messages-card {
   margin-top: 15px;
-
 }
 
 .mdl-layout__header-row span {
@@ -111,29 +110,7 @@
   justify-content: space-between;
 }
 
-/* Does not conform with custom layout--see #image-form below:
-
-#message-form {
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 48px);
-  float: left;
-}*/
-/*#image-form {
-  display: flex;
-  flex-direction: row;
-  width: 48px;
-  float: right;
-}
-#message-form .mdl-textfield {
-  width: calc(100% - 100px);
-}
-#message-form button, #image-form button {
-  width: 100px;
-  margin: 15px 0 0 10px;
-} */
-
-/* Customizations below */
+/* DoWhop Chat-specific Customizations below: */
 
  #when-column-bounds {
    background-color: eggshell;
@@ -143,17 +120,17 @@
    margin: auto;
  }
 
-/* Adding map styling. Always best to set the map height div explicitly. */
+/* Adding Google map styling: */
 
 #where-column-bounds {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-#map {
-    height: 500px;
-    width: 600px;
-  }
+#map {   /* <-- Always best to set the map height div explicitly. */
+  height: 500px;
+  width: 600px;
+}
 
 #description {
  font-family: Roboto;
@@ -228,6 +205,9 @@
 }
 
 /* Added-on styling details */
+
+h1,h2,h3,h4,h5 { font-family: Avenir }
+
 #image-form {
   padding-top: 2%;
 }
