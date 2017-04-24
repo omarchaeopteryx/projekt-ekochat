@@ -161,7 +161,7 @@
               <label class="form-line">
                 <span>Where?</span>
                   <i id="new-chat-input-where-icon" class="large material-icons">location_on</i>
-                <!-- Testing new map-->
+                <!-- Map area-->
                 <div id="where-column-bounds">
                   <input id="pac-input" class="controls" type="text" placeholder="Set a place...">
                   <div id="map"></div>
@@ -219,13 +219,18 @@ function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 32.742705, lng: -117.145857}, // <-- Preset to San Diego Zoo
     zoom: 13,
-    mapTypeId: 'roadmap'
+    mapTypeId: 'roadmap',
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.BOTTOM_CENTER
+    }
   });
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
