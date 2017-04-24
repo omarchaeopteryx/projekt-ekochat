@@ -240,7 +240,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
   console.log(this.chatItemDataSpecific);
 
   // Nesting the message content under chat-id node headings.
-  var messagesChatsRef = this.messagesRef;
+
+  var messagesChatsRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
 
   // Check that the user entered a message and is signed in.
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
@@ -404,7 +405,7 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     this.loadChats(); // <-- Check.
 
     // We load currently existing chat messages.
-    this.loadMessages();
+    // this.loadMessages();
 
     // We want to save currently signed-in user.
     this.saveUser(); // <-- Check.
@@ -489,20 +490,6 @@ FriendlyChat.CHAT_TEMPLATE =
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
-// OM ADD: We want to display the list of chats in the UI <-- FIX!
-// FriendlyChat.prototype.displayChat = function(childKey, childData) {
-//   var div = document.getElementById(childKey);
-//   if (!div) {
-//     var container = document.createElement('div');
-//     container.innerHTML = '<section>' + '<p>' + '</p>' + '</section>';
-//     // container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
-//     div = container.firstChild;
-//     div.setAttribute('id', childKey);
-//     // div.text(childData);
-//     this.chatList.appendChild(div);
-//   }
-// };
-
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   var div = document.getElementById(key);
@@ -566,5 +553,3 @@ FriendlyChat.prototype.checkSetup = function() {
 window.onload = function() {
   window.friendlyChat = new FriendlyChat();
 };
-
-// Dev Notes: use firebase.auth().currentUser.uid in console to find current user id
