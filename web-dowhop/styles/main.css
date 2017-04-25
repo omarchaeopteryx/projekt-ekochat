@@ -243,9 +243,15 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 
 /* Phone-demo sizing additions (optimized for 450px) */
 
-#messages-card-container, #chat-list-container, #show-chat-data-form {
-  padding: 10%;
+#messages-card-container, #chat-list-container, #show-chat-data-form, #create-new-chat {
+  padding-right: 10%;
+  padding-left: 10%;
   padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+#messages-card-container {
+  padding-bottom: 10%; /* <-- Customizing here to encourage focus on messages. */
 }
 
 #message-form-div {
