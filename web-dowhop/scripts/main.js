@@ -196,7 +196,7 @@ FriendlyChat.prototype.loadChats = function() {
         console.log(snap.key); // <-- Debugging
         console.log("OK"); // <--"
         myChatData.innerText = snap.val().title;
-        myChatData.innerHTML = "<h2 id='" + snap.key + "'>" + snap.val().title + '</h2>' +
+        myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
                 "<p>Click  to load messages.</p>" +
                 "<h5>When?</h5>" +
                 "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + '</p>' +
@@ -266,7 +266,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
       text: this.messageInput.value,
-      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png' // <- Optional to customize.
+      photoUrl: currentUser.photoURL || 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     }).then(function() {
       // Clear message text field and SEND button state.
       FriendlyChat.resetMaterialTextfield(this.messageInput);

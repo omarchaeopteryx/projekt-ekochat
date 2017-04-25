@@ -39,8 +39,8 @@
   margin: auto;
 }
 .material-icons {
-  font-size: 36px;
-  top: 8px;
+  font-size: 30px;
+  top: 1px;
   position: relative;
 }
 .mdl-layout__header-row {
@@ -104,6 +104,7 @@
 
 .mdl-card {
   min-height: 0;
+
 }
 .mdl-card {
   background: linear-gradient(white, #f9f9f9);
@@ -112,12 +113,12 @@
 
 /* DoWhop Chat-specific Customizations below: */
 
- #when-column-bounds {
-   background-color: eggshell;
-   display: flex;
-   justify-content: space-around;
-   padding: 5%;
-   margin: auto;
+#when-column-bounds {
+  background-color: eggshell;
+  display: flex;
+  justify-content: space-around;
+  padding: 5%;
+  margin: auto;
  }
 
 /* Adding Google map styling: */
@@ -128,7 +129,7 @@
 }
 
 #map {   /* <-- Always best to set the map height div explicitly. */
-  height: 500px;
+  height: 250px;
   width: 600px;
 }
 
@@ -209,7 +210,8 @@
 h1,h2,h3,h4,h5 { font-family: Avenir }
 
 #image-form {
-  padding-top: 12%;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 
 #create-new-chat {
@@ -223,14 +225,19 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 }
 
 #when-icon {
-  width: 7%;
-  height: 7%;
+  width: 10%;
+  height: 10%;
   padding-top: 2%;
 }
 
 #where-icon {
-  width: 7%;
-  height: 7%;
+  width: 10%;
+  height: 10%;
   padding-top: 2%;
-  padding-bottom: 2%;
+  padding-bottom: 5%;
+}
+
+/* Revisit */
+i {
+  padding-bottom: 10%;
 }
