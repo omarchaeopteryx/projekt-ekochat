@@ -240,3 +240,14 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 .dowhop-button {
   width: 100%;
 }
+
+/* Phone-demo sizing additions (optimized for 450px) */
+
+#messages-card-container, #chat-list-container, #show-chat-data-form {
+  padding: 10%;
+}
+
+#message-form-div {
+  padding: 0%;
+  width: 100%;
+}
