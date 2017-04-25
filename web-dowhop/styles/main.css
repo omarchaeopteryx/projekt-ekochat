@@ -234,7 +234,7 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
   width: 10%;
   height: 10%;
   padding-top: 2%;
-  padding-bottom: 5%;
+  padding-bottom: 2%;
 }
 
 .dowhop-button {
@@ -245,9 +245,22 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 
 #messages-card-container, #chat-list-container, #show-chat-data-form {
   padding: 10%;
+  padding-top: 2%;
 }
 
 #message-form-div {
   padding: 0%;
   width: 100%;
+}
+
+/* Harmonizing Googls Maps input field with theme */
+
+#pac-input {
+  position: 0;
+  transition: 0.2s ease all;
+}
+#pac-input:focus {
+  border-color: red;
+  border-width: 2px;
+
 }
