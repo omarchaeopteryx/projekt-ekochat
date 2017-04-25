@@ -498,7 +498,7 @@ FriendlyChat.MESSAGE_TEMPLATE =
 // OM ADD: Templates for Chats.
 
 FriendlyChat.CHAT_TEMPLATE =
-  '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>';
+  '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dowhop-button">' + '</button>';
 
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
