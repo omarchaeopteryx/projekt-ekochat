@@ -162,9 +162,9 @@ FriendlyChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
-// Adding dynamic When form: 
+// Adding dynamic When form:
 FriendlyChat.prototype.showDateTimeInputs = function () {
-  this.newChatWhenBounds.removeAttribute("hidden");
+  this.newChatWhenBounds.removeAttribute('hidden');
 }
 
 FriendlyChat.prototype.loadChats = function() {
@@ -303,10 +303,10 @@ FriendlyChat.prototype.saveChat = function(e) {
     }).then(function() {
       // ADDED: Clear the form and reset the button state.
       this.newChatForm.reset();
-      // ADDED: Clear the Google map
-      // this.chatInputMap.reset() <-- Fix
+      // TO-DO: Clear the Google map.
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
+      this.newChatWhenBounds.setAttribute('hidden', 'true');
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
