@@ -1,19 +1,17 @@
 $( document ).ready(function() {
 
-
-    $('#new-chat-input-when-time').hide()
-
     // Add the interactive calendar selection:
     $( "#new-chat-input-when-date" ).datepicker({
                 showOn: "button",
-                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-                buttonImageOnly: true,
+                // buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+                buttonImageOnly: false,
                 dateFormat: 'yy-mm-dd'
             });
 
-    // Add the interactive clock selection:
-    $('#new-chat-input-when-time-icon').on('click', function() {
+    // Add the interactive clock stlying:
+    $('#when-icon').on('click', function() {
       $('#new-chat-input-when-time').fadeIn("slow");
+      $('#new-chat-input-when-date').fadeIn("slow");
     })
 
     // function initAutocomplete() {
@@ -89,7 +87,7 @@ $( document ).ready(function() {
     //     map.fitBounds(bounds);
     //   });
     // }
-    
+
 });
 
 

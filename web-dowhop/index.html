@@ -90,7 +90,7 @@
         </ul>
       </div>
 
-      <div class="form-wrap">
+      <div id="show-chat-data-form" class="form-wrap">
         <div id="show-chat-data">Your DoWhop details will appear here!
         </div>
       </div>
@@ -102,7 +102,7 @@
               <span id="message-filler"></span>
             </div>
             <form id="message-form" action="#">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <label class="form-line" for="message">Message
                   <input type="text" id="message">
                   <span class="bar">
@@ -114,8 +114,8 @@
             </form>
             <form id="image-form" action="#">
               <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-              <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-                <i class="material-icons">image</i>
+              <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
+                <i class="material-icons">perm_media</i>
               </button>
             </form>
         </div>
@@ -141,26 +141,32 @@
                 <span class="bar">
               </label>
               <!-- Below is the div box for the date-time columns -->
-              <div id="when-column-bounds">
-                <div id="when-column-left">
-                  <label class="form-line">
-                    <span>When?</span>
-                    <input type="date" id='new-chat-input-when-date' size="50">
-                    <span class="bar">
-                  </label>
+              <div id="when-icon-div">
+                <label class="form-line">
+                <span>When?</span><br>
+                <img id="when-icon" src='https://static.wixstatic.com/media/de271e_99334077334348128459dcffdcf5262f~mv2.png/v1/fill/w_512,h_512,al_c/de271e_99334077334348128459dcffdcf5262f~mv2.png'>
+                <div hidden id="when-column-bounds">
+                  <div id="when-column-left">
+                    <!-- <label class="form-line"> -->
+                      <span>Date:</span>
+                      <input type="date" id='new-chat-input-when-date' size="50">
+                      <span class="bar">
+                    </label>
+                  </div>
+                  <div id="when-column-right">
+                      <span>Time:</span>
+                      <input type="time" id='new-chat-input-when-time' size="50">
+                      <!-- <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i> -->
+                      <span class="bar">
+                    </label>
+                  </div>
                 </div>
-                <div id="when-column-right">
-                  <label class="form-line">
-                    <span>What time?</span>
-                    <input type="time" id='new-chat-input-when-time' size="50">
-                    <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i>
-                    <span class="bar">
-                  </label>
-                </div>
+              </label>
               </div>
+              <!-- Below is the area for selecting 'where' -->
               <label class="form-line">
                 <span>Where?</span>
-                  <i id="new-chat-input-where-icon" class="large material-icons">location_on</i>
+                  <img id="where-icon" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png">
                 <!-- Map area-->
                 <div id="where-column-bounds">
                   <input id="pac-input" class="controls" type="text" placeholder="Set a place...">

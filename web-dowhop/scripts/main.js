@@ -111,6 +111,8 @@ function FriendlyChat() {
   this.newChatForm = document.getElementById('new-chat-form')
   this.newChatInputTitle = document.getElementById('new-chat-input-title')
   this.newChatInputWho = document.getElementById('new-chat-input-who')
+  this.newChatWhenIcon = document.getElementById('when-icon-div')
+  this.newChatWhenBounds = document.getElementById('when-column-bounds')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
   this.newChatInputWhere = document.getElementById('pac-input')
@@ -125,6 +127,10 @@ function FriendlyChat() {
 
   // OM ADD: Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
+
+  // Reveal when and where upon form section click:
+
+  this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
   // Saves message on form submit.
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
@@ -156,6 +162,11 @@ FriendlyChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
+// Adding dynamic When form:
+FriendlyChat.prototype.showDateTimeInputs = function () {
+  this.newChatWhenBounds.removeAttribute('hidden');
+}
+
 FriendlyChat.prototype.loadChats = function() {
 
   // First, make sure the view element is chosen:
@@ -185,7 +196,7 @@ FriendlyChat.prototype.loadChats = function() {
         console.log(snap.key); // <-- Debugging
         console.log("OK"); // <--"
         myChatData.innerText = snap.val().title;
-        myChatData.innerHTML = "<h2 id='" + snap.key + "'>" + snap.val().title + '</h2>' +
+        myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
                 "<p>Click  to load messages.</p>" +
                 "<h5>When?</h5>" +
                 "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + '</p>' +
@@ -255,7 +266,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
       text: this.messageInput.value,
-      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png' // <- Optional to customize.
+      photoUrl: currentUser.photoURL || 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     }).then(function() {
       // Clear message text field and SEND button state.
       FriendlyChat.resetMaterialTextfield(this.messageInput);
@@ -292,10 +303,10 @@ FriendlyChat.prototype.saveChat = function(e) {
     }).then(function() {
       // ADDED: Clear the form and reset the button state.
       this.newChatForm.reset();
-      // ADDED: Clear the Google map
-      // this.chatInputMap.reset() <-- Fix
+      // TO-DO: Clear the Google map.
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
+      this.newChatWhenBounds.setAttribute('hidden', 'true');
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
@@ -487,7 +498,7 @@ FriendlyChat.MESSAGE_TEMPLATE =
 // OM ADD: Templates for Chats.
 
 FriendlyChat.CHAT_TEMPLATE =
-  '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">' + '</button>';
+  '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dowhop-button">' + '</button>';
 
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
