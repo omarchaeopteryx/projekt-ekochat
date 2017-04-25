@@ -111,6 +111,8 @@ function FriendlyChat() {
   this.newChatForm = document.getElementById('new-chat-form')
   this.newChatInputTitle = document.getElementById('new-chat-input-title')
   this.newChatInputWho = document.getElementById('new-chat-input-who')
+  this.newChatWhenIcon = document.getElementById('when-icon-div')
+  this.newChatWhenBounds = document.getElementById('when-column-bounds')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
   this.newChatInputWhere = document.getElementById('pac-input')
@@ -125,6 +127,10 @@ function FriendlyChat() {
 
   // OM ADD: Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
+
+  // Reveal when and where upon form section click:
+
+  this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
   // Saves message on form submit.
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
@@ -155,6 +161,11 @@ FriendlyChat.prototype.initFirebase = function() {
   // Initiates Firebase auth and listen to auth state changes.
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
+
+// Adding dynamic When form: 
+FriendlyChat.prototype.showDateTimeInputs = function () {
+  this.newChatWhenBounds.removeAttribute("hidden");
+}
 
 FriendlyChat.prototype.loadChats = function() {
 
