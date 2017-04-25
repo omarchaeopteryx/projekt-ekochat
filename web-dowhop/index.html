@@ -141,26 +141,33 @@
                 <span class="bar">
               </label>
               <!-- Below is the div box for the date-time columns -->
-              <div id="when-column-bounds">
-                <div id="when-column-left">
-                  <label class="form-line">
-                    <span>When?</span>
-                    <input type="date" id='new-chat-input-when-date' size="50">
-                    <span class="bar">
-                  </label>
+              <div id="when-icon-div">
+                <label class="form-line">
+                <span>When?</span><br>
+                <img id="when-icon" src='https://s3-us-west-1.amazonaws.com/dowhop-webchat/calendar-.png'>
+                <div hidden id="when-column-bounds">
+                  <div id="when-column-left">
+                    <label class="form-line">
+                      <span>When?</span>
+                      <input type="date" id='new-chat-input-when-date' size="50">
+                      <span class="bar">
+                    </label>
+                  </div>
+                  <div id="when-column-right">
+                    <label class="form-line">
+                      <span>What time?</span>
+                      <input type="time" id='new-chat-input-when-time' size="50">
+                      <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i>
+                      <span class="bar">
+                    </label>
+                  </div>
                 </div>
-                <div id="when-column-right">
-                  <label class="form-line">
-                    <span>What time?</span>
-                    <input type="time" id='new-chat-input-when-time' size="50">
-                    <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i>
-                    <span class="bar">
-                  </label>
-                </div>
+              </label>
               </div>
+              <!-- Below is the area for selecting 'where' -->
               <label class="form-line">
                 <span>Where?</span>
-                  <i id="new-chat-input-where-icon" class="large material-icons">location_on</i>
+                  <img id="where-icon" src="https://s3-us-west-1.amazonaws.com/dowhop-webchat/map.png">
                 <!-- Map area-->
                 <div id="where-column-bounds">
                   <input id="pac-input" class="controls" type="text" placeholder="Set a place...">

@@ -213,11 +213,24 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 }
 
 #create-new-chat {
-  padding-right: 25%;
-  padding-left: 25%;
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 #show-chat-data {
   padding: 2%;
   background-color: #F6F6F6;
+}
+
+#when-icon {
+  width: 7%;
+  height: 7%;
+  padding-top: 2%;
+}
+
+#where-icon {
+  width: 7%;
+  height: 7%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
