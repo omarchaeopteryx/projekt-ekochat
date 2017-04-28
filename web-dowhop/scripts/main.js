@@ -167,6 +167,12 @@ FriendlyChat.prototype.showDateTimeInputs = function () {
   this.newChatWhenBounds.removeAttribute('hidden');
 }
 
+FriendlyChat.prototype.removeChats = function() {
+  this.chatList.innerHTML = "";
+  this.messageList.innerHTML = "";
+  this.chatItemData.innerHTML = "Your DoWhop details will appear here!";
+}
+
 FriendlyChat.prototype.loadChats = function() {
 
   // First, make sure the view element is chosen:
@@ -391,8 +397,10 @@ FriendlyChat.prototype.signIn = function() {
 
 // Signs-out of Friendly Chat.
 FriendlyChat.prototype.signOut = function() {
-  // Added: Sign out of Firebase.
+  // Added: Sign out of Firebase. Be sure to reset views.
+  this.removeChats();
   this.auth.signOut();
+
 };
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
@@ -414,8 +422,9 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // Hide sign-in button.
     this.signInButton.setAttribute('hidden', 'true');
 
-    // We want to load currently existing threads.
-    this.loadChats(); // <-- Check.
+    // We want to reset the page and load currently existing threads:
+    // this.removeChats();
+    this.loadChats();
 
     // We load currently existing chat messages.
     // this.loadMessages();
