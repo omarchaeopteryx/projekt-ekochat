@@ -15,7 +15,7 @@
  */
 'use strict';
 
-// Creates Google maps:
+// Creates Google maps: <-- TO-DO: Reset the Google Map upon reload.
 
 // This example requires the Places library. Include the libraries=places
   // parameter when you first load the API. For example:
@@ -88,7 +88,6 @@
     });
   }
 
-
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
@@ -107,7 +106,7 @@ function FriendlyChat() {
   this.signOutButton = document.getElementById('sign-out');
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
 
-  // OM ADD: DOM elements for the new chatroom form
+  // DOM elements for the new chatroom form
   this.newChatForm = document.getElementById('new-chat-form')
   this.newChatInputTitle = document.getElementById('new-chat-input-title')
   this.newChatInputWho = document.getElementById('new-chat-input-who')
@@ -121,40 +120,37 @@ function FriendlyChat() {
   this.chatList = document.getElementById('chat-list')
   this.chatInputMap = document.getElementById('map')
 
-  // OM ADD: Load chat data
+  // Load chat data:
   this.chatItemData = document.getElementById('show-chat-data');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
 
-  // OM ADD: Save chats on chatroom form submit:
+  // Save chats on chatroom form submit:
   this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
 
   // Reveal when and where upon form section click:
-
   this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
-  // Saves message on form submit.
+  // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
   this.signOutButton.addEventListener('click', this.signOut.bind(this));
   this.signInButton.addEventListener('click', this.signIn.bind(this));
 
-  // Toggle for the button.
+  // Toggle for the button:
   var buttonTogglingHandler = this.toggleButton.bind(this);
   this.messageInput.addEventListener('keyup', buttonTogglingHandler);
   this.messageInput.addEventListener('change', buttonTogglingHandler);
 
-  // Events for image upload.
+  // Events for image upload:
   this.submitImageButton.addEventListener('click', function(e) {
     e.preventDefault();
     this.mediaCapture.click();
   }.bind(this));
   this.mediaCapture.addEventListener('change', this.saveImageMessage.bind(this));
-
   this.initFirebase();
 }
 
-// Sets up shortcuts to Firebase features and initiate firebase auth.
+// Sets up shortcuts to Firebase features and initiate firebase auth:
 FriendlyChat.prototype.initFirebase = function() {
-  // Added: Shortcuts to Firebase SDK features.
   this.auth = firebase.auth();
   this.database = firebase.database();
   this.storage = firebase.storage();
@@ -162,27 +158,28 @@ FriendlyChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
-// Adding dynamic When form:
+// Add dynamic 'When' form:
 FriendlyChat.prototype.showDateTimeInputs = function () {
   this.newChatWhenBounds.removeAttribute('hidden');
 }
 
-FriendlyChat.prototype.loadChats = function() {
+FriendlyChat.prototype.removeChats = function() {
+  this.chatList.innerHTML = "";
+  this.messageList.innerHTML = "";
+  this.chatItemData.innerHTML = "Your DoWhop details will appear here!";
+}
 
+FriendlyChat.prototype.loadChats = function() {
   // First, make sure the view element is chosen:
   var myView = this.chatList;
-
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('chats/');
-  // myRef.on('child_added', snap => console.log(snap.val())); <-- Debug
-  // Third, retrieve all items from the list of user-specific items:
   var myChatData = this.chatItemData;
 
   myRef.on('child_added', snap => {
-
-    // OM: Alternative Method for creating buttons
+    // Creating the buttons to further load chat data:
       var container = document.createElement('div');
       container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
       let button = container.firstChild;
@@ -191,10 +188,7 @@ FriendlyChat.prototype.loadChats = function() {
 
       // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
-
-        myViewMessageList.innerText = ''; // Resetting the form;
-        console.log(snap.key); // <-- Debugging
-        console.log("OK"); // <--"
+        myViewMessageList.innerText = ''; // <-- Resetting the form;
         myChatData.innerText = snap.val().title;
         myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
                 "<p>Click  to load messages.</p>" +
@@ -204,71 +198,51 @@ FriendlyChat.prototype.loadChats = function() {
                 "<p>" + snap.val().who + '</p>' +
                 "<h5>Where?</h5>" +
                 "<p>" + snap.val().where + '</p>'
-
-                // Return to this after you save message nested:
-      // var myMessagesRef = firebase.database().ref().child('messages/' +
-      // snap.key);
-      // var myMessagesView = createElement('div');
-      // console.log(myMessagesRef);
-    });
+      });
       myView.appendChild(button);
   });
 };
 
-// Loads messages history and listens for upcoming ones.
+// Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
-  // Added: Load and listens for new messages upon clicking UI element.
   let user = this.auth.currentUser.uid;
   var chatIdCurrent = this.chatItemData.firstChild.id // <-- Refactor
-  console.log('loading messages...');
-
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
-  this.messagesRef.on('value', snap => console.log(snap.val())); // <-- Debugging
+
   // Make sure we remove all previous listeners.
   this.messagesRef.off();
-  // Loads the last x number of messages and listen for new ones.
+
+  // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
     var val = data.val();
     this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
   }.bind(this);
-  // this.messagesRef.limitToLast(12).on('child_added', setMessage)
-  this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage); // Return to this.
+  this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
   this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
 };
 
-// OM: We want to load a chat's specific data into view - these are bound to the buttons created below:
-
-FriendlyChat.prototype.loadChatMessages = function() {
-
-  console.log('Loading chat messages...')
-
-}
-
-// Saves a new message on the Firebase DB.
+// Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
 
-  // NEXT: Make sure this chat and message get sent to two appropriate places!
+  // Mke sure this chat and message get sent to two appropriate places:
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
-  console.log('Saving to.....:')
-  console.log(this.chatItemDataSpecific);
 
-  // Nesting the message content under chat-id node headings.
-  var messagesChatsRef = this.messagesRef; // <-- FIX! Rewrite
+  // Nesting the message content under chat-id node headings:
+  var messagesChatsRef = this.messagesRef; // <-- Refactor?
 
-  // Check that the user entered a message and is signed in.
+  // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
 
-    // ADDED: push new message to Firebase.
+    // Push new message to Firebase:
     var currentUser = this.auth.currentUser;
-    // Add a new message entry to the Firebase Database.
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
       text: this.messageInput.value,
       photoUrl: currentUser.photoURL || 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     }).then(function() {
-      // Clear message text field and SEND button state.
+      // Clear message text field and SEND button state:
       FriendlyChat.resetMaterialTextfield(this.messageInput);
       this.toggleButton();
     }.bind(this)).catch(function(error) {
@@ -277,33 +251,26 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-// OM: Button to save your chat thread to the database:
+// Button to save your chat thread to the database:
 FriendlyChat.prototype.saveChat = function(e) {
-  console.log(this.newChatInputTitle.value); // <-- Debugging start
-  console.log(this.newChatInputWho.value);
-  console.log(this.newChatInputWhenDate.value);
-  console.log(this.newChatInputWhenTime.value);
-  console.log(this.newChatInputWhere.value);
-  console.log("You clicked the new chat button!"); // <-- Debugging end
   e.preventDefault();
   // Check that the user entered a message and is signed in:
   if (this.newChatInputTitle.value && this.checkSignedInWithMessage()) {
 
-    // ADDED: push new chat to Firebase:
+    // Push new chat to Firebase:
     var currentUser = this.auth.currentUser;
 
-    // ADDED: a new chat entry to the Firebase Database:
+    // A new chat entry to the Firebase Database:
     this.database.ref('chats/').push({
       title: this.newChatInputTitle.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
       where: this.newChatInputWhere.value,
       who: this.newChatInputWho.value,
-      creator: currentUser.uid // <- saves current user ID
+      creator: currentUser.uid
     }).then(function() {
-      // ADDED: Clear the form and reset the button state.
+      // Clear the form and reset the button state.
       this.newChatForm.reset();
-      // TO-DO: Clear the Google map.
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
       this.newChatWhenBounds.setAttribute('hidden', 'true');
@@ -389,9 +356,9 @@ FriendlyChat.prototype.signIn = function() {
   this.auth.signInWithPopup(provider);
 };
 
-// Signs-out of Friendly Chat.
+// Signs-out of Friendly Chat and resets views:
 FriendlyChat.prototype.signOut = function() {
-  // Added: Sign out of Firebase.
+  this.removeChats();
   this.auth.signOut();
 };
 
@@ -414,14 +381,12 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // Hide sign-in button.
     this.signInButton.setAttribute('hidden', 'true');
 
-    // We want to load currently existing threads.
-    this.loadChats(); // <-- Check.
-
-    // We load currently existing chat messages.
-    // this.loadMessages();
+    // We want to reset the page and load currently existing threads:
+    // this.removeChats();
+    this.loadChats();
 
     // We want to save currently signed-in user.
-    this.saveUser(); // <-- Check.
+    this.saveUser();
 
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
@@ -439,7 +404,6 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
 // Returns true if user is signed-in. Otherwise false and displays a message.
 FriendlyChat.prototype.checkSignedInWithMessage = function() {
   /* Added: Check if user is signed-in Firebase. */
-
   if (this.auth.currentUser) {
     return true;
   }
@@ -495,8 +459,7 @@ FriendlyChat.MESSAGE_TEMPLATE =
       '<div class="name"></div>' +
     '</div>';
 
-// OM ADD: Templates for Chats.
-
+// Templates for Chats:
 FriendlyChat.CHAT_TEMPLATE =
   '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dowhop-button">' + '</button>';
 
