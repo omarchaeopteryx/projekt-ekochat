@@ -270,3 +270,9 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
   border-width: 2px;
 
 }
+
+/* Be sure to update upon style guide changes */
+
+#hover-flag, #top-bar-hidden, #top-bar-dowhop {
+  background-color: #FF0404;
+}
