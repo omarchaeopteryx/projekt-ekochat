@@ -132,7 +132,12 @@
           <form id="new-chat-form" action="#">
               <label class="form-line">
                 <span>Title?</span>
-                <input type="text" id="new-chat-input-title">
+                <input type="text" id="new-chat-input-title" placeholder="Ex: Sail with Sam">
+                <span class="bar">
+              </label>
+              <label class="form-line">
+                <span>What?</span>
+                <input type="text" id="new-chat-input-what" placeholder="Ex: 27-foot Soling. You bring white-soled shoes, I provide snacks and lifejackets...">
                 <span class="bar">
               </label>
               <label class="form-line">
@@ -181,7 +186,7 @@
           </form>
         </div>
 
-    <div hidden id="new-chat-popup">New conversation started!</div>
+    <div hidden id="new-chat-popup"></div>
   </main>
 </div>
 <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
