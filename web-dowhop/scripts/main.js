@@ -189,7 +189,8 @@ FriendlyChat.prototype.loadChats = function() {
 
       // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
-        myViewMessageList.innerText = ''; // <-- Resetting the form;
+        document.getElementById('new-chat-popup').setAttribute("hidden", "true"); // <-- Reset error messages.
+        myViewMessageList.innerText = ''; // <-- Reset the form.
         myChatData.innerText = snap.val().title;
         myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
                 "<p>Click  to load messages.</p>" +
@@ -257,8 +258,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
 // Button to save your chat thread to the database:
 FriendlyChat.prototype.saveChat = function(e) {
   e.preventDefault();
-  // Check that the user entered a message and is signed in:
-  if (this.newChatInputTitle.value && this.checkSignedInWithMessage()) {
+  // Check that the user entered information and is signed in:
+  if (this.newChatInputTitle.value && this.newChatInputWhat.value
+    && this.newChatInputWhenDate.value && this.newChatInputWhenTime.value
+    && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
 
     // Push new chat to Firebase:
     var currentUser = this.auth.currentUser;
@@ -266,7 +269,7 @@ FriendlyChat.prototype.saveChat = function(e) {
     // A new chat entry to the Firebase Database:
     this.database.ref('chats/').push({
       title: this.newChatInputTitle.value,
-      what: this.newChatInputWhat.value, // <-- CHECK
+      what: this.newChatInputWhat.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
       where: this.newChatInputWhere.value,
@@ -277,10 +280,15 @@ FriendlyChat.prototype.saveChat = function(e) {
       this.newChatForm.reset();
       this.toggleButton();
       this.newChatPopup.removeAttribute("hidden");
+      this.newChatPopup.innerHTML = "You started a new event!";
       this.newChatWhenBounds.setAttribute('hidden', 'true');
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
     });
+  } else {
+    this.newChatPopup.removeAttribute("hidden");
+    this.newChatPopup.innerHTML = "Please enter all event information.";
+    console.log("Error"); // <--OM
   }
 }
 
@@ -340,7 +348,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
   }
 };
 
-// OM: Save all users who've logged in into DB via UID for shallow nesting:
+// Save all users who've logged in into DB via UID for shallow nesting:
 FriendlyChat.prototype.saveUser = function() {
   var currentUser = this.auth.currentUser;
   this.database.ref('users/' + currentUser.uid).set({
