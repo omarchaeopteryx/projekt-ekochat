@@ -193,6 +193,8 @@ FriendlyChat.prototype.loadChats = function() {
         myChatData.innerText = snap.val().title;
         myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
                 "<p>Click  to load messages.</p>" +
+                "<h5>What?</h5>" +
+                "<p>" + (snap.val().what || 'TBD') + "</p>" +
                 "<h5>When?</h5>" +
                 "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + '</p>' +
                 "<h5>Who?</h5>" +
