@@ -186,10 +186,10 @@ FriendlyChat.prototype.loadChats = function() {
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
-
+      let myReset = this.newChatPopup;
       // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
-        document.getElementById('new-chat-popup').setAttribute("hidden", "true"); // <-- Reset error messages.
+        myReset.setAttribute("hidden", "true"); // <-- Reset error messages.
         myViewMessageList.innerText = ''; // <-- Reset the form.
         myChatData.innerText = snap.val().title;
         myChatData.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
@@ -197,11 +197,11 @@ FriendlyChat.prototype.loadChats = function() {
                 "<h5>What?</h5>" +
                 "<p>" + (snap.val().what || 'TBD') + "</p>" +
                 "<h5>When?</h5>" +
-                "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + '</p>' +
+                "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + "</p>" +
                 "<h5>Who?</h5>" +
-                "<p>" + snap.val().who + '</p>' +
+                "<p>" + snap.val().who + "</p>" +
                 "<h5>Where?</h5>" +
-                "<p>" + snap.val().where + '</p>'
+                "<p>" + snap.val().where + "</p>"
       });
       myView.appendChild(button);
   });
