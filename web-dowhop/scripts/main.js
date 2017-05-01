@@ -109,6 +109,7 @@ function FriendlyChat() {
   // DOM elements for the new chatroom form
   this.newChatForm = document.getElementById('new-chat-form')
   this.newChatInputTitle = document.getElementById('new-chat-input-title')
+  this.newChatInputWhat = document.getElementById('new-chat-input-what')
   this.newChatInputWho = document.getElementById('new-chat-input-who')
   this.newChatWhenIcon = document.getElementById('when-icon-div')
   this.newChatWhenBounds = document.getElementById('when-column-bounds')
@@ -263,6 +264,7 @@ FriendlyChat.prototype.saveChat = function(e) {
     // A new chat entry to the Firebase Database:
     this.database.ref('chats/').push({
       title: this.newChatInputTitle.value,
+      what: this.newChatInputWhat.value, // <-- CHECK
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
       where: this.newChatInputWhere.value,
