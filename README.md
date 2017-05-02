@@ -1,4 +1,8 @@
-Coming soon!
+Currently in development! 
+
+A real-time multi-channel chat application using Firebase web development resources. Tech includes: Firebase SDK (NoSQL), Google Maps API, HTML/CSS, JavaScript, jQuery.
+
+![A screenshot of the DoWhop WebChat app](https://docs.google.com/drawings/d/1lrZ7vGGXalN2at4IQEOSvC8hkwWq8ulvsOUnQjbNcQs/pub?w=796&h=783)
 
 How to get started with development:
 
