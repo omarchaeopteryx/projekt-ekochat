@@ -1,4 +1,4 @@
-Currently in development! 
+MIRROR: Currently in development! 
 
 A real-time multi-channel chat application using Firebase web development resources. Tech includes: Firebase SDK (NoSQL), Google Maps API, HTML/CSS, JavaScript, jQuery.
 
